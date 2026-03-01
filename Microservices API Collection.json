@@ -1,0 +1,665 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789abc",
+		"name": "Microservices API Collection",
+		"description": "Collection for testing Item Service, Order Service, Payment Service, and API Gateway endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items"
+					]
+				},
+				"description": "Retrieve all items from the service"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Item by ID (Valid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is a string\", function () {",
+							"    pm.expect(pm.response.text()).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/items/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items",
+						"0"
+					]
+				},
+				"description": "Retrieve a specific item by its ID (index)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Item by ID (Second Item)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/items/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items",
+						"1"
+					]
+				},
+				"description": "Retrieve the second item (Laptop)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Item by ID (Not Found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/items/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items",
+						"999"
+					]
+				},
+				"description": "Try to retrieve a non-existent item (should return 404)"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response contains item name\", function () {",
+							"    pm.expect(pm.response.text()).to.include('Tablet');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tablet\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items"
+					]
+				},
+				"description": "Add a new item to the service"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Mouse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mouse\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items"
+					]
+				},
+				"description": "Add another item (Mouse)"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Keyboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Keyboard\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"items"
+					]
+				},
+				"description": "Add another item (Keyboard)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders"
+					]
+				},
+				"description": "Retrieve all orders from the service"
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order (Laptop)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response contains order details\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('status');",
+							"    pm.expect(jsonData.status).to.eql('PENDING');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item\": \"Laptop\",\n    \"quantity\": 2,\n    \"customerId\": \"C001\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders"
+					]
+				},
+				"description": "Place a new order for laptops"
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order (Phone)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response has PENDING status\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql('PENDING');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item\": \"Phone\",\n    \"quantity\": 1,\n    \"customerId\": \"C002\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders"
+					]
+				},
+				"description": "Place a new order for phones"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by ID (Valid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains order data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('item');",
+							"    pm.expect(jsonData).to.have.property('status');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/orders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders",
+						"1"
+					]
+				},
+				"description": "Retrieve a specific order by its ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by ID (Not Found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/orders/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"orders",
+						"999"
+					]
+				},
+				"description": "Try to retrieve a non-existent order (should return 404)"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is an array\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{paymentServiceUrl}}/payments",
+					"host": [
+						"{{paymentServiceUrl}}"
+					],
+					"path": [
+						"payments"
+					]
+				},
+				"description": "Retrieve all payments from the service"
+			},
+			"response": []
+		},
+		{
+			"name": "Process Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response has SUCCESS status\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData.status).to.eql('SUCCESS');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": 1,\n    \"amount\": 1299.99,\n    \"method\": \"CARD\"\n}"
+				},
+				"url": {
+					"raw": "{{paymentServiceUrl}}/payments/process",
+					"host": [
+						"{{paymentServiceUrl}}"
+					],
+					"path": [
+						"payments",
+						"process"
+					]
+				},
+				"description": "Process a new payment"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payment by ID (Valid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{paymentServiceUrl}}/payments/1",
+					"host": [
+						"{{paymentServiceUrl}}"
+					],
+					"path": [
+						"payments",
+						"1"
+					]
+				},
+				"description": "Retrieve a payment by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payment by ID (Not Found)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{paymentServiceUrl}}/payments/999",
+					"host": [
+						"{{paymentServiceUrl}}"
+					],
+					"path": [
+						"payments",
+						"999"
+					]
+				},
+				"description": "Try to retrieve a non-existent payment (should return 404)"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "itemServiceUrl",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "orderServiceUrl",
+			"value": "http://localhost:8082",
+			"type": "string"
+		},
+		{
+			"key": "paymentServiceUrl",
+			"value": "http://localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "apiGatewayUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Java / Maven build output
+**/target/
+**/out/
+
+# Maven wrapper cache (keep wrapper scripts + properties)
+.mvn/wrapper/maven-wrapper.jar
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
