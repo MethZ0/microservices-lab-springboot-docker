@@ -115,7 +115,7 @@ docker compose ps
 
 ## 7. Testing Instructions (Postman Examples)
 1. Open Postman.
-2. Import collection: `Item-Service.postman_collection.json`.
+2. Import collection: `Microservices API Collection.json`.
 3. Ensure Gateway-first testing using `http://localhost:8080`.
 4. Run example requests:
    - `GET http://localhost:8080/items`
@@ -172,15 +172,8 @@ Microservice/
     └── src/
 ```
 
-## 10. Screenshots Section (Placeholder)
-Add screenshots here before submission:
-- [ ] Docker containers running (`docker compose ps`)
-- [ ] API Gateway routing success
-- [ ] Postman test results for Items
-- [ ] Postman test results for Orders
-- [ ] Postman test results for Payments
 
-## 11. Submission Details
+## 10. Repo Details
 - Module: `SE4010 - CTSE`
 - Assignment: `Microservices Lab – Spring Boot + Docker`
 
